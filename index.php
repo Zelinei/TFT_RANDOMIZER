@@ -1,36 +1,25 @@
 <?php
 // Database connection (replace with your actual credentials)
-$servername = "localhost";
-$username = "your_username";
-$password = "your_password";
-$dbname = "testing";
+$host = 'localhost';
+$dbname = 'your_database_name';
+$username = 'your_username';
+$password = 'your_password';
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // Randomly select an item
+    $stmt = $pdo->query("SELECT * FROM random_items ORDER BY RAND() LIMIT 1");
+    $randomItem = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Display the item
+    echo "<div class='random-item'>";
+    echo "<h2>{$randomItem['item_name']}</h2>";
+    echo "<p>{$randomItem['item_description']}</p>";
+    echo "</div>";
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
 }
-
-// Query to select a random tutorial
-$sql = "SELECT `tutorialid`, `title`, `link` FROM `tutorial` ORDER BY RAND() LIMIT 1";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // Fetch the random tutorial
-    $row = $result->fetch_assoc();
-    $tutorialId = $row["tutorialid"];
-    $tutorialTitle = $row["title"];
-    $tutorialLink = $row["link"];
-
-    echo "Random Tutorial (ID $tutorialId):\n";
-    echo "Title: $tutorialTitle\n";
-    echo "Link: $tutorialLink\n";
-} else {
-    echo "No tutorials found.";
-}
-
-// Close connection
-$conn->close();
 ?>
+

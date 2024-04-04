@@ -1,17 +1,16 @@
-/* styles.css */
-body {
+/* style.css */
+.random-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 10px;
     font-family: Arial, sans-serif;
-    text-align: center;
 }
-
-h1 {
+.random-item h2 {
+    font-size: 20px;
     color: #333;
 }
-
-button {
-    background-color: #0074D9;
-    color: #FFF;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+.random-item p {
+    font-size: 14px;
+    color: #666;
 }
