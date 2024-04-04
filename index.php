@@ -1,7 +1,7 @@
 <?php
 // Database connection (replace with your actual credentials)
 $host = 'localhost';
-$dbname = 'your_database_name';
+$dbname = 'TFT_Randomizer';
 $username = 'your_username';
 $password = 'your_password';
 
