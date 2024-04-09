@@ -1,25 +1,39 @@
 <?php
-// Database connection (replace with your actual credentials)
-$host = 'localhost';
-$dbname = 'TFT_Randomizer';
-$username = 'your_username';
-$password = 'your_password';
+// Assuming you have already established a database connection
+// Replace the following placeholders with your actual database credentials
+$host = 'your_database_host';
+$username = 'your_database_username';
+$password = 'your_database_password';
+$dbname = 'your_database_name';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Create a database connection
+$conn = new mysqli($host, $username, $password, $dbname);
 
-    // Randomly select an item
-    $stmt = $pdo->query("SELECT * FROM random_items ORDER BY RAND() LIMIT 1");
-    $randomItem = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Display the item
-    echo "<div class='random-item'>";
-    echo "<h2>{$randomItem['item_name']}</h2>";
-    echo "<p>{$randomItem['item_description']}</p>";
-    echo "</div>";
-} catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-?>
 
+// Get the total number of records in the 'user' table
+$result = $conn->query("SELECT COUNT(*) FROM user");
+$row = $result->fetch_row();
+$totalRecords = $row[0];
+
+// Generate a random index within the range of records
+$randomIndex = mt_rand(0, $totalRecords - 1);
+
+// Fetch a random username from the 'user' table
+$query = "SELECT username FROM user LIMIT $randomIndex, 1";
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $randomUsername = $row['username'];
+    echo "Random username: $randomUsername";
+} else {
+    echo "No records found.";
+}
+
+// Close the database connection
+$conn->close();
+?>
