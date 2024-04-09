@@ -1,13 +1,10 @@
 <?php
 // Assuming you have already established a database connection
 // Replace the following placeholders with your actual database credentials
-$host = 'your_database_host';
-$username = 'your_database_username';
-$password = 'your_database_password';
-$dbname = 'your_database_name';
+$dbname = 'TFT_Randomizer';
 
 // Create a database connection
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($dbname);
 
 // Check connection
 if ($conn->connect_error) {
