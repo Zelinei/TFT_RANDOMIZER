@@ -1,10 +1,13 @@
 <?php
 // Assuming you have already established a database connection
 // Replace the following placeholders with your actual database credentials
+$host = 'XAMPP';
+$username = 'Zerdus ^^';
+$password = 'your_database_password';
 $dbname = 'TFT_Randomizer';
 
 // Create a database connection
-$conn = new mysqli($dbname);
+$conn = new mysqli($host, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
