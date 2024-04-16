@@ -1,39 +1,42 @@
 <?php
-// Assuming you have already established a database connection
-// Replace the following placeholders with your actual database credentials
-$host = 'XAMPP';
-$username = 'Zerdus ^^';
-$password = 'your_database_password';
-$dbname = 'TFT_Randomizer';
+// Generate a random integer between min and max (inclusive)
+$randomNumber = rand($min, $max);
 
-// Create a database connection
-$conn = new mysqli($host, $username, $password, $dbname);
+// Generate a random float
+$randomFloat = mt_rand() / mt_getrandmax();
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Generate a random number within a specific range
+
+// For integers
+$randomInRange = rand($min, $max); 
+
+// For floats
+$randomInRange = mt_rand($min, $max) / mt_getrandmax(); 
+
+$bits = 8 * PHP_INT_SIZE;
+echo "(Info: This script is running as $bits-bit.)\r\n\r\n";
+
+$connStr = 
+        '$connection = odbc_connect("Driver={Microsoft Access Driver (*.mdb)};Dbq=$mdbFilename", $user, $password);' .
+        'Dbq=C:\\Users\\Gord\\Desktop\\foo.accdb;';
+
+$dbh = new PDO($connStr);
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$sql = 
+        "SELECT AgentName FROM Agents " .
+        "WHERE ID < ? AND AgentName <> ?";
+$sth = $dbh->prepare($sql);
+
+// query parameter value(s)
+$params = array(
+        5,
+        'Homer'
+        );
+
+$sth->execute($params);
+
+while ($row = $sth->fetch()) {
+    echo $row['AgentName'] . "\r\n";
 }
-
-// Get the total number of records in the 'user' table
-$result = $conn->query("SELECT COUNT(*) FROM user");
-$row = $result->fetch_row();
-$totalRecords = $row[0];
-
-// Generate a random index within the range of records
-$randomIndex = mt_rand(0, $totalRecords - 1);
-
-// Fetch a random username from the 'user' table
-$query = "SELECT username FROM user LIMIT $randomIndex, 1";
-$result = $conn->query($query);
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $randomUsername = $row['username'];
-    echo "Random username: $randomUsername";
-} else {
-    echo "No records found.";
-}
-
-// Close the database connection
-$conn->close();
 ?>
