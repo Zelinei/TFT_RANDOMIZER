@@ -19,8 +19,6 @@ if ($conn->connect_error) {
 
 
 
-echo '<br>';
-
 //Tittelen pa siden
 echo '<h1>Teamfight Tactics Randomizer</h1>';
 
@@ -31,32 +29,22 @@ echo '<br>';
 echo '<br>';
 echo '<br>';
 echo '<br>';
+echo '<br>';
+echo '<br>';
 
-//Kode for Sign Up knappen
-echo '<button class="signup" onclick="redirectToSignup()">Sign Up</button>';
-
-//JavaScript funksjon som sender oss til en ny side/fil
-echo '<script>
-function redirectToSignup() {
-    window.location.href = "signup.php"; 
-}
-</script>';
-
-echo '<br>';    
-
-//Kode for Sign Up knappen
-echo '<button class="signup" onclick="redirectToLogin()">Login</button>';
+//Kode for Knappen som generer tilfeldige resultat (Sender til en ny side)
+echo '<button class="button" onclick="redirectToPage()">Time to Roll!</button>';
 
 //JavaScript funksjon som sender oss til en ny side/fil
 echo '<script>
-function redirectToLogin() {
-    window.location.href = "login.php"; 
+function redirectToPage() {
+    window.location.href = "sidepage.php"; 
 }
 </script>';
 
-echo '<img src="pengu.png" alt="pengu.png" class="pengu">';
+echo '<img src="lux.png" alt="lux.png" class="lux">';
 
-echo '<img src="tftlogo.png" alt="tftlogo.png" class="logo">';
+echo '<img src="gwen.png" alt="gwen.png" class="gwen">';
 
 $conn->close();
 ?>
